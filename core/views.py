@@ -126,7 +126,7 @@ def manage_tasks(request):
     tasks = Task.objects.all()
     return render(request, 'superadmin/manage_tasks.html', {'tasks': tasks})
 
-######Maanage Users Views######
+######Manage Users Views######
 
 @login_required
 @user_passes_test(is_superadmin)
