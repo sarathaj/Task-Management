@@ -85,5 +85,5 @@ REST_FRAMEWORK = {
     ),
 }
 
-LOGIN_REDIRECT_URL = '/api/admin/dashboard/'
+LOGIN_REDIRECT_URL = '/api/role-redirect/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'

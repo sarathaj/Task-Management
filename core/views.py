@@ -11,6 +11,8 @@ from .forms import TaskForm
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib import messages
 from .forms import UserForm
+from django.http import HttpResponse
+
 
 class TaskListView(generics.ListAPIView):
     serializer_class = TaskSerializer
@@ -47,9 +49,22 @@ class TaskReportView(APIView):
 def is_admin(user):
     return user.is_authenticated and user.role == 'admin'
 
+
+@login_required
+def role_based_redirect(request):
+    user = request.user
+    print(f"User role: {user.role} {user}")  # Debugging line to check user role
+    if user.role == 'superadmin':
+        return redirect('superadmin-dashboard')
+    elif user.role == 'admin':
+        return redirect('admin-dashboard')
+    else:
+        return HttpResponse("Unauthorized: You do not have access to a dashboard.", status=403)
+
 @login_required
 @user_passes_test(is_admin)
 def admin_dashboard(request):
+    print(f"User role: {request.user.role} {request.user}")  # Debugging line to check user role
     users = User.objects.filter(assigned_admin=request.user)
     tasks = Task.objects.filter(assigned_to__in=users)
     return render(request, 'admin/dashboard.html', {
