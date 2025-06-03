@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Admin Dashboard</title>
+    <title>Task Reports</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,23 +22,15 @@
             color: #333;
             margin-bottom: 24px;
         }
-        nav {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        nav a {
+        a {
+            display: inline-block;
+            margin-bottom: 20px;
             color: #1976d2;
             text-decoration: none;
-            margin: 0 18px;
-            font-size: 16px;
-            transition: color 0.2s;
+            font-size: 15px;
         }
-        nav a:hover {
-            color: #125ea6;
-        }
-        h2 {
-            color: #444;
-            margin-bottom: 18px;
+        a:hover {
+            text-decoration: underline;
         }
         table {
             width: 100%;
@@ -58,42 +50,29 @@
         tr:hover {
             background: #f1f7ff;
         }
-        .action-link {
-            color: #1976d2;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .action-link:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Admin Dashboard</h1>
-        <nav>
-            <a href="{% url 'assign-task' %}">Assign Task</a> |
-            <a href="{% url 'task-reports' %}">Task Reports</a> |
-            <a href="{% url 'logout' %}">Logout</a>
-        </nav>
-        <h2>Tasks Assigned to Your Users</h2>
+        <h1>Task Completion Reports</h1>
+        <a href="{% url 'superadmin-dashboard' %}">&larr; Back to Dashboard</a>
         <table>
             <tr>
-                <th>Title</th>
+                <th>Task</th>
                 <th>User</th>
-                <th>Status</th>
-                <th>Due Date</th>
-                <th>Actions</th>
+                <th>Worked Hours</th>
+                <th>Completion Report</th>
             </tr>
             {% for task in tasks %}
             <tr>
                 <td>{{ task.title }}</td>
                 <td>{{ task.assigned_to }}</td>
-                <td>{{ task.status }}</td>
-                <td>{{ task.due_date }}</td>
-                <td>
-                    <a class="action-link" href="{% url 'edit-task' task.id %}">Edit</a>
-                </td>
+                <td>{{ task.worked_hours }}</td>
+                <td>{{ task.completion_report }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align:center;">No completed tasks found.</td>
             </tr>
             {% endfor %}
         </table>

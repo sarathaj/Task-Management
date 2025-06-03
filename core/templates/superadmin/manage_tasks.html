@@ -3,31 +3,110 @@
 <html>
 <head>
     <title>Manage Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 950px;
+            margin: 40px auto;
+            padding: 32px 32px 24px 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        a {
+            color: #1976d2;
+            text-decoration: none;
+            font-size: 15px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fafbfc;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: left;
+        }
+        th {
+            background: #e3eafc;
+            color: #222;
+        }
+        tr:hover {
+            background: #f1f7ff;
+        }
+        .action-link {
+            color: #1976d2;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .action-link:hover {
+            text-decoration: underline;
+        }
+        .create-link {
+            display: inline-block;
+            margin-top: 18px;
+            background: #1976d2;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: background 0.2s;
+        }
+        .create-link:hover {
+            background: #125ea6;
+        }
+    </style>
 </head>
 <body>
-    <h1>Manage All Tasks</h1>
-    <a href="{% url 'superadmin-dashboard' %}">Back to Dashboard</a>
-    <table border="1">
-        <tr>
-            <th>Title</th>
-            <th>Assigned To</th>
-            <th>Status</th>
-            <th>Due Date</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-        <tr>
-            <td>{{ task.title }}</td>
-            <td>{{ task.assigned_to }}</td>
-            <td>{{ task.status }}</td>
-            <td>{{ task.due_date }}</td>
-            <td>
-                <a href="{% url 'edit-task' task.id %}">Edit</a> |
-                <a href="{% url 'delete-task' task.id %}">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="{% url 'create-task' %}">Create New Task</a>
+    <div class="container">
+        <h1>Manage All Tasks</h1>
+        <a class="back-link" href="{% url 'superadmin-dashboard' %}">&larr; Back to Dashboard</a>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Actions</th>
+            </tr>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.title }}</td>
+                <td>{{ task.assigned_to }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.due_date }}</td>
+                <td>
+                    <a class="action-link" href="{% url 'edit-task' task.id %}">Edit</a> |
+                    <a class="action-link" href="{% url 'delete-task' task.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align:center;">No tasks found.</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a class="create-link" href="{% url 'create-task' %}">Create New Task</a>
+    </div>
 </body>
 </html>

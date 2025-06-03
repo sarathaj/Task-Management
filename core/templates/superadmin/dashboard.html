@@ -2,25 +2,91 @@
 <html>
 <head>
     <title>SuperAdmin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background: #fff;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 32px 32px 24px 32px;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        nav a {
+            color: #1976d2;
+            text-decoration: none;
+            margin: 0 18px;
+            font-size: 16px;
+            transition: color 0.2s;
+        }
+        nav a:hover {
+            color: #125ea6;
+        }
+        h2 {
+            color: #444;
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+        ul {
+            background: #fafbfc;
+            border-radius: 6px;
+            padding: 18px 24px;
+            margin-bottom: 20px;
+            list-style: none;
+        }
+        ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #222;
+        }
+        ul li:last-child {
+            border-bottom: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 4px 12px 4px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>SuperAdmin Dashboard</h1>
-    <nav>
-        <a href="{% url 'manage-users' %}">Manage Users</a> |
-        <a href="{% url 'manage-tasks' %}">Manage Tasks</a> |
-        <a href="{% url 'logout' %}">Logout</a>
-    </nav>
-    <h2>All Users</h2>
-    <ul>
-        {% for user in users %}
-            <li>{{ user.username }} ({{ user.role }})</li>
-        {% endfor %}
-    </ul>
-    <h2>All Tasks</h2>
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task.title }} - {{ task.status }}</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>SuperAdmin Dashboard</h1>
+        <nav>
+            <a href="{% url 'manage-users' %}">Manage Users</a> |
+            <a href="{% url 'manage-tasks' %}">Manage Tasks</a> |
+            <a href="{% url 'logout' %}">Logout</a>
+        </nav>
+        <h2>All Users</h2>
+        <ul>
+            {% for user in users %}
+                <li>{{ user.username }} ({{ user.role }})</li>
+            {% empty %}
+                <li>No users found.</li>
+            {% endfor %}
+        </ul>
+        <h2>All Tasks</h2>
+        <ul>
+            {% for task in tasks %}
+                <li>{{ task.title }} - {{ task.status }}</li>
+            {% empty %}
+                <li>No tasks found.</li>
+            {% endfor %}
+        </ul>
+    </div>
 </body>
 </html>

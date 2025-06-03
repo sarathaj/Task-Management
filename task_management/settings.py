@@ -32,6 +32,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'task_management.urls'
 
+
+STATIC_URL = 'static/'
+
+# For development, add:
+import os
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'core', 'static'),
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -75,3 +84,6 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+LOGIN_REDIRECT_URL = '/api/admin/dashboard/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'
