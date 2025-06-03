@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <nav>
+        <a href="{% url 'assign-task' %}">Assign Task</a> |
+        <a href="{% url 'task-reports' %}">Task Reports</a> |
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+    <h2>Tasks Assigned to Your Users</h2>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.assigned_to }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>
+                <a href="{% url 'edit-task' task.id %}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

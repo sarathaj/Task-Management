@@ -1,0 +1,33 @@
+<!-- filepath: core/templates/superadmin/manage_tasks.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Tasks</title>
+</head>
+<body>
+    <h1>Manage All Tasks</h1>
+    <a href="{% url 'superadmin-dashboard' %}">Back to Dashboard</a>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Assigned To</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.assigned_to }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.due_date }}</td>
+            <td>
+                <a href="{% url 'edit-task' task.id %}">Edit</a> |
+                <a href="{% url 'delete-task' task.id %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'create-task' %}">Create New Task</a>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Reports</title>
+</head>
+<body>
+    <h1>Task Completion Reports</h1>
+    <a href="{% url 'admin-dashboard' %}">Back to Dashboard</a>
+    <table border="1">
+        <tr>
+            <th>Task</th>
+            <th>User</th>
+            <th>Worked Hours</th>
+            <th>Completion Report</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.assigned_to }}</td>
+            <td>{{ task.worked_hours }}</td>
+            <td>{{ task.completion_report }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Task</title>
+</head>
+<body>
+    <h1>Assign Task to User</h1>
+    <a href="{% url 'admin-dashboard' %}">Back to Dashboard</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Assign Task</button>
+    </form>
+</body>
+</html>
